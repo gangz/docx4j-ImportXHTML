@@ -2173,7 +2173,6 @@ public class XHTMLImporterImpl implements XHTMLImporter {
         	
         	String cssName = (String)o;
         	CSSValue cssValue = (CSSValue)cssMap.get(cssName);
-        	
         	Property p = PropertyFactory.createPropertyFromCssName(cssName, cssValue);
         	
         	if (p!=null) {
@@ -2282,8 +2281,9 @@ public class XHTMLImporterImpl implements XHTMLImporter {
         	// not in list; handle indent
         	log.debug("not in list; handle indent");
     		Ind ind = Context.getWmlObjectFactory().createPPrBaseInd();
-    		ind.setLeft(BigInteger.valueOf(getAncestorIndentation(styleable)) );			
-    		pPr.setInd(ind);
+    		ind.setLeft(BigInteger.valueOf(getAncestorIndentation(styleable)) );
+    		if (pPr.getInd()==null)
+    			pPr.setInd(ind);
         }
         
                 
