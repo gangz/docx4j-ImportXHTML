@@ -59,20 +59,14 @@ public class HangingIndentTest {
 		return XHTMLImporter.convert(xhtml, "");
 	}
 	
-	@Test public void testUnorderedWithStylePresent() throws Docx4JException, JAXBException {
+	@Test public void testHangingIndent() throws Docx4JException, JAXBException {
     	String xhtml= "<p style=\"margin-left:2em;"
     			+ "text-indent:-2em;\">"
     			+ "text</p>";
-    	
     	wordMLPackage.getMainDocumentPart().getContent().addAll(
 				convert(xhtml));
-    	List<Object> results = convert( xhtml);
-		System.out.println(wordMLPackage.getMainDocumentPart().getXML());
 		List<Object> matches = wordMLPackage.getMainDocumentPart().getJAXBNodesViaXPath("//w:pPr", false);
-		System.out.print(matches);
 		PPr ppr = (PPr) matches.get(0);
-		assertNotNull(ppr.getInd().getLeft());
-		assertNotNull(ppr.getInd().getHanging());
 		assertEquals(ppr.getInd().getLeft().intValue(),480);
 		assertEquals(ppr.getInd().getHanging().intValue(),480);
 	}
